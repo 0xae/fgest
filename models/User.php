@@ -11,19 +11,13 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @inheritdoc
      */
     public static function findIdentity($id) {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return AppUser::findModel($id);
     }
 
     /**
      * @inheritdoc
      */
     public static function findIdentityByAccessToken($token, $type = null) {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
         return null;
     }
 
@@ -34,13 +28,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @return static|null
      */
     public static function findByUsername($username) {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return AppUser::findByEmail($username);
     }
 
     /**
@@ -71,6 +59,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password) {
-        return $this->password === $password;
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
 }

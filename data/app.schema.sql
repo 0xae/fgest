@@ -5,10 +5,12 @@ use fgest;
 create table fg_user (
     id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome varchar(50) not null,
-    email text not null,
-    password text not null,
+    email varchar(200) not null,
+    password_hash text not null,
     tipo varchar(50),
-    is_active boolean
+    is_active boolean,
+
+    UNIQUE(email)
 );
 
 create table fg_orcamento (
