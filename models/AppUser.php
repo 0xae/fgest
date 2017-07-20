@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "fg_user".
@@ -15,6 +16,8 @@ use Yii;
  * @property integer $is_active
  */
 class AppUser extends \yii\db\ActiveRecord {
+    public $password;
+
     /**
      * @inheritdoc
      */
@@ -27,8 +30,9 @@ class AppUser extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['nome', 'email', 'password_hash'], 'required'],
-            [['email', 'password_hash'], 'string'],
+            [['nome', 'email', 'auth_key', 'password_hash'], 'required'],
+            [['email', 'auth_key', 'password_hash'], 'string'],
+            [['password_hash', 'auth_key', 'email'], 'safe'],
             [['is_active'], 'integer'],
             [['nome', 'tipo'], 'string', 'max' => 50],
         ];
@@ -63,16 +67,5 @@ class AppUser extends \yii\db\ActiveRecord {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function setPassword($password) {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
-    }
-
-    /**
-     * Generates "remember me" authentication key
-     */
-    public function generateAuthKey() {
-        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 }

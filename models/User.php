@@ -1,7 +1,10 @@
 <?php
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use Yii;
+use yii\db\ActiveRecord;
+
+class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
     public $id;
     public $email;
@@ -10,8 +13,15 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     /**
      * @inheritdoc
      */
+    public static function tableName() {
+        return 'fg_user';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public static function findIdentity($id) {
-        return AppUser::findModel($id);
+        return self::findOne($id);
     }
 
     /**
@@ -28,7 +38,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @return static|null
      */
     public static function findByUsername($username) {
-        return AppUser::findByEmail($username);
+        return self::findOne(['email' => $username]);
     }
 
     /**
@@ -42,14 +52,14 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @inheritdoc
      */
     public function getAuthKey() {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
      * @inheritdoc
      */
     public function validateAuthKey($authKey) {
-        return $this->authKey === $authKey;
+        return $this->getAuthKey() == $authKey;
     }
 
     /**
@@ -59,6 +69,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password) {
-        return Yii::$app->security->validatePassword($password, $this->password);
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 }

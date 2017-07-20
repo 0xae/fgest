@@ -7,6 +7,7 @@ create table fg_user (
     nome varchar(50) not null,
     email varchar(200) not null,
     password_hash text not null,
+    auth_key varchar(250),
     tipo varchar(50),
     is_active boolean,
 

@@ -1,10 +1,8 @@
 <?php
-namespace backend\models;
+namespace app\models;
 
 use Yii;
 use yii\base\Model;
-use backend\models\User;
-use backend\models\Profile;
 
 /**
  * Signup form
@@ -26,7 +24,7 @@ class SignupForm extends Model {
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\models\User', 'message' => 'Email em uso.'],
+            ['email', 'unique', 'targetClass' => 'app\models\AppUser', 'message' => 'Email em uso.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
@@ -43,8 +41,10 @@ class SignupForm extends Model {
         }
 
         $user = new AppUser();
+        $user->nome = $this->nome;
         $user->email = $this->email;
         $user->setPassword($this->password);
+        $user->generateAuthKey();
         $user->auth_key = Yii::$app->security->generateRandomString();
 
         if ($user->save()) {
