@@ -4,6 +4,6 @@ return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=tests',
     'username' => 'root',
-    'password' => '',
+    'password' => getenv('FGEST_DB_PASSWORD'),
     'charset' => 'utf8',
 ];

@@ -1,4 +1,4 @@
-create table orcamento (
+create table fg_orcamento (
     id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     titulo varchar(50) NOT NULL,
     descricao text,
@@ -11,7 +11,7 @@ create table orcamento (
 
 );
 
-create table factura (
+create table fg_factura (
     id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     titulo varchar(50) NOT NULL,
     descricao text,
@@ -24,7 +24,7 @@ create table factura (
     updated_por BIGINT(20)
 );
 
-create table factura_item (
+create table fg_factura_item (
     id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     descricao varchar(50) NOT NULL,
     quantidade INTEGER NOT NULL default 0,
@@ -40,7 +40,7 @@ create table factura_item (
     updated_por BIGINT(20)
 );
 
-create table factura_anexos (
+create table fg_factura_anexos (
     id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     titulo varchar(50) NOT NULL,
     path text NOT NULL,
