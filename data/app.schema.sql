@@ -8,6 +8,7 @@ create table orcamento (
     data_update datetime NOT NULL default CURRENT_DATE,
     criado_por BIGINT(20),
     updated_por BIGINT(20)
+
 );
 
 create table factura (
