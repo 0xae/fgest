@@ -1,3 +1,12 @@
+create table fg_user (
+    id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome varchar(50) not null,
+    email text not null,
+    password text not null,
+    tipo varchar(50),
+    is_active boolean
+);
+
 create table fg_orcamento (
     id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     titulo varchar(50) NOT NULL,
