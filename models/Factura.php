@@ -41,7 +41,7 @@ class Factura extends \yii\db\ActiveRecord
             [['orcamento_id', 'criado_por', 'updated_por'], 'integer'],
             [['data_criacao', 'data_update'], 'safe'],
             [['titulo'], 'string', 'max' => 50],
-            [['orcamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => FgOrcamento::className(), 'targetAttribute' => ['orcamento_id' => 'id']],
+            [['orcamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orcamento::className(), 'targetAttribute' => ['orcamento_id' => 'id']],
         ];
     }
 
