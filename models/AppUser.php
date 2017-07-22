@@ -15,7 +15,7 @@ use yii\web\NotFoundHttpException;
  * @property string $tipo
  * @property integer $is_active
  */
-class AppUser extends \yii\db\ActiveRecord {
+class AppUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
     public $password;
 
     /**

@@ -21,14 +21,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @inheritdoc
      */
     public static function findIdentity($id) {
-        return self::findOne($id);
+        return self::findOne(['id' => $id]);
     }
 
     /**
      * @inheritdoc
      */
     public static function findIdentityByAccessToken($token, $type = null) {
-        return null;
+        return self::findOne(['auth_key' => $token]);
     }
 
     /**
