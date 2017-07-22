@@ -14,8 +14,7 @@ class SiteController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -58,7 +57,11 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        if (Yii::$app->user->isGuest) {
+            return $this->render('login', ['model' => new LoginForm ]);
+        } else {
+            return $this->render('index');
+        }
     }
 
     /**
