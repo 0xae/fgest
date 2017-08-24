@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\AppUser;
 use app\models\SignupForm;
+use app\models\Orcamento;
 
 class SiteController extends Controller {
     /**
@@ -60,7 +61,10 @@ class SiteController extends Controller {
         if (Yii::$app->user->isGuest) {
             return $this->render('login', ['model' => new LoginForm ]);
         } else {
-            return $this->render('index');
+            $data = Orcamento::find()->all();
+            return $this->render('index', [
+                "model" => $data
+            ]);
         }
     }
 
