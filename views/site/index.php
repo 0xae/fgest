@@ -19,7 +19,11 @@ $this->title = 'My Yii Application';
         <div class="row">
             <div class="col-lg-4">
                 <h2>Or&ccedil;amentos Recentes</h2>
-                <p><a class="btn  btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+                <p>
+                    <a class="btn  btn-success" href="index.php?r=orcamento/create">
+                    criar or&ccedil;amento
+                    </a>
+                </p>
 
             </div>
             <?php foreach ($model as $orc): ?>

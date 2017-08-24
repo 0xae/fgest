@@ -18,23 +18,20 @@ use Yii;
  *
  * @property FgFactura[] $fgFacturas
  */
-class Orcamento extends \yii\db\ActiveRecord
-{
+class Orcamento extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'fg_orcamento';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['titulo'], 'required'],
+            [['titulo', 'valor'], 'required'],
             [['descricao'], 'string'],
             [['valor'], 'number'],
             [['data_criacao', 'data_update'], 'safe'],
@@ -46,8 +43,7 @@ class Orcamento extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'titulo' => 'Titulo',
@@ -63,8 +59,8 @@ class Orcamento extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFgFacturas()
-    {
-        return $this->hasMany(FgFactura::className(), ['orcamento_id' => 'id']);
+    public function getFacturas() {
+        return $this->hasMany(FgFactura::className(), ['orcamento_id' => 'id'])
+                    ->all();
     }
 }

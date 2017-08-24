@@ -61,10 +61,7 @@ class SiteController extends Controller {
         if (Yii::$app->user->isGuest) {
             return $this->render('login', ['model' => new LoginForm ]);
         } else {
-            $data = Orcamento::find()->all();
-            return $this->render('index', [
-                "model" => $data
-            ]);
+            return $this->redirect(['orcamento/index']);
         }
     }
 
@@ -80,7 +77,7 @@ class SiteController extends Controller {
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['orcamento/index']);
         }
 
         return $this->render('login', ['model' => $model]);
@@ -109,30 +106,11 @@ class SiteController extends Controller {
     }
 
     /**
-     * Displays contact page.
-     *
-     * @return string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Displays about page.
      *
      * @return string
      */
-    public function actionAbout()
-    {
+    public function actionAbout() {
         return $this->render('about');
     }
 }

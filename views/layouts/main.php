@@ -28,7 +28,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'Gest&atilde;o de Or&ccedil;amento',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => 'index.php?r=orcamento/index',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -36,7 +36,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Inicio', 'url' => ['/site/index']],
+            ['label' => 'Inicio', 'url' => ['/orcamento/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
