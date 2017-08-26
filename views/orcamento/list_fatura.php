@@ -1,6 +1,7 @@
 <table class="table  table-striped table-bordered">
     <thead>
         <tr>
+            <th><a href="javascript:void(0)"># Refer&ecirc;ncia</a></th>
             <th><a href="javascript:void(0)">Titulo</a></th>
             <th><a href="javascript:void(0)">Produtos</a></th>
             <th><a href="javascript:void(0)">Gastos</a></th>
@@ -11,6 +12,7 @@
     <tbody>
         <?php foreach($facturas as $row): ?>
             <tr>
+                <td> Factura #<?= $row->id ?>  </td>
                 <td> <?= $row->titulo ?>  </td>
                 <td> <?= count($row->getProduto()); ?>  </td>
                 <td> <?= $row->getGasto(); ?>$00  </td>

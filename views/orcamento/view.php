@@ -18,11 +18,11 @@ $facturas = $model->getFactura();
         <small> <?= $model->valor; ?>$00 </small>
     </h1>
 
-    <div role="tabpanel">
+    <div role="tabpanel" style="">
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="list">
-            <h4 style="">
+            <h4 style="margin-bottom: 20px">
                 Lista de Facturas
 
                 <a href="#create" class="btn btn-sm pull-right btn-success" 
@@ -32,31 +32,33 @@ $facturas = $model->getFactura();
                 </a>
             </h4>
 
-
-            <?php 
-                echo \Yii::$app->view->renderFile(
-                    "@app/views/orcamento/list_fatura.php",
-                    ["facturas" => $facturas]
-                ); 
-            ?>
+            <div style="padding: 20px">
+                <?php 
+                    echo \Yii::$app->view->renderFile(
+                        "@app/views/orcamento/list_fatura.php",
+                        ["facturas" => $facturas]
+                    ); 
+                ?>
+            </div>
         </div>
 
         <div role="tabpanel" class="tab-pane" id="create">
             <h4 style="">
                 Criar factura
-
                 <a href="#list" class="btn btn-sm pull-right btn-danger" aria-controls="profile" role="tab" data-toggle="tab">
                     cancelar
                 </a>
             </h4>
 
-            <?php 
-                echo \Yii::$app->view->renderFile(
-                    "@app/views/orcamento/create_fatura.php",
-                    ['model'=> $facturaModel,
-                     'orcamento' => $model]
-                ); 
-            ?>
+            <div style="padding: 20px">
+                <?php 
+                    echo \Yii::$app->view->renderFile(
+                        "@app/views/orcamento/create_fatura.php",
+                        ['model'=> $facturaModel,
+                         'orcamento' => $model]
+                    ); 
+                ?>
+            </div>
         </div>
       </div>
     </div>
