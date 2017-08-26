@@ -27,7 +27,7 @@ foreach ($facturas as $f) {
 
     <p style="clear:both;font-size: 17px;color: #666"> 
         <?= $model->titulo; ?>
-     </p>
+    </p>
 
     <div role="tabpanel" style="">
       <!-- Tab panes -->
