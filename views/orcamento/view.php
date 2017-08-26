@@ -6,37 +6,59 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Orcamento */
 
-$this->title = $model->id;
+$this->title =  $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Orcamentos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$facturas = $model->getFactura();
 ?>
 <div class="orcamento-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>
+        <?= $model->titulo; ?>
+        <br />
+        <small> <?= $model->valor; ?>$00 </small>
+    </h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div role="tabpanel">
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="list">
+            <h4 style="">
+                Lista de Facturas
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'titulo',
-            'descricao:ntext',
-            'valor',
-            'data_criacao',
-            'data_update',
-            'criado_por',
-            'updated_por',
-        ],
-    ]) ?>
+                <a href="#create" class="btn btn-sm pull-right btn-success" 
+                    aria-controls="home" role="tab" 
+                    data-toggle="tab">
+                    adicionar
+                </a>
+            </h4>
+
+
+            <?php 
+                echo \Yii::$app->view->renderFile(
+                    "@app/views/orcamento/list_fatura.php",
+                    ["facturas" => $facturas]
+                ); 
+            ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="create">
+            <h4 style="">
+                Criar factura
+
+                <a href="#list" class="btn btn-sm pull-right btn-danger" aria-controls="profile" role="tab" data-toggle="tab">
+                    cancelar
+                </a>
+            </h4>
+
+            <?php 
+                echo \Yii::$app->view->renderFile(
+                    "@app/views/orcamento/create_fatura.php",
+                    ['model'=> $facturaModel,
+                     'orcamento' => $model]
+                ); 
+            ?>
+        </div>
+      </div>
+    </div>
 
 </div>

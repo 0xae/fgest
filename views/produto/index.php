@@ -26,13 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'quantidade',
             'valor',
             'data',
-            // 'iva',
-            // 'factura_id',
-            // 'data_criacao',
-            // 'data_update',
-            // 'criado_por',
-            // 'updated_por',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

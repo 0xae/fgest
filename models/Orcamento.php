@@ -57,8 +57,8 @@ class Orcamento extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFacturas() {
-        return $this->hasMany(FgFactura::className(), ['orcamento_id' => 'id'])
+    public function getFactura() {
+        return $this->hasMany(Factura::className(), ['orcamento_id' => 'id'])
                     ->all();
     }
 }

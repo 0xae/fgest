@@ -3,12 +3,14 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Orcamento;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+
+use app\models\Orcamento;
+use app\models\Factura;
 
 /**
  * OrcamentoController implements the CRUD actions for Orcamento model.
@@ -49,8 +51,11 @@ class OrcamentoController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        $fact = new Factura;
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'facturaModel' => $fact
         ]);
     }
 

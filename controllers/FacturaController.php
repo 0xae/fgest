@@ -64,6 +64,10 @@ class FacturaController extends Controller {
      */
     public function actionCreate() {
         $model = new Factura();
+        $model->criado_por = Yii::$app->user->identity->id;
+        $model->updated_por = Yii::$app->user->identity->id;
+        $model->data_criacao = date('Y-m-d H:i:s');
+        $model->data_update = date('Y-m-d H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -84,6 +88,9 @@ class FacturaController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->updated_por = Yii::$app->user->identity->id;
+            $model->data_update = date('Y-m-d H:i:s');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

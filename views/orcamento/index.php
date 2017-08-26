@@ -1,12 +1,11 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-
-$this->title = 'Orcamentos';
+$this->title = 'Orçamentos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="orcamento-index">
     <div style="margin-bottom: 10px;">
         <h1 style="display: inline">
@@ -18,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
     </div>
 
-    <table class="table table-bordered">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th><a href="javascript:void(0)">T&iacute;tulo</a></th>
@@ -38,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td> <?= $row->data_criacao ?>  </td>
                     <td> <?= $row->data_update ?>  </td>
                     <td>
-                        <a href="index.php?r=orcamento/update&id=<?= $row->id ?>">
+                        <a href="index.php?r=orcamento/view&id=<?= $row->id ?>">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                     </td>

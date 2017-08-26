@@ -65,4 +65,13 @@ class Factura extends \yii\db\ActiveRecord {
         return $this->hasMany(Produto::className(), ['factura_id' => 'id'])
                     ->all();
     }
+
+    public function getGasto() {
+        $val = 0;
+        $ary = $this->getProduto();
+        foreach ($ary as $p) {
+            $val += $p->valor;
+        }
+        return $val;
+    }
 }
