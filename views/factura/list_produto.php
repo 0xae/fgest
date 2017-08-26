@@ -46,7 +46,7 @@
             </th>
             <th>
                 <center>
-                    0.00$00
+                    0 un.
                 </center>
             </th>
             <th>
