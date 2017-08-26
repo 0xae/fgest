@@ -3,16 +3,22 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Factura */
-
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Facturas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = [
+    'label' => 'Orçamento #' . str_pad($model->orcamento_id, 5, '0', STR_PAD_LEFT),
+    'url' => ['orcamento/view', 'id'=>$model->orcamento_id]
+];
 ?>
 <div class="factura-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>
+        Factura #<?= str_pad($model->id, 5, '0', STR_PAD_LEFT); ?>
+        <br/>
+        <small>
+        <span style="font-size:14px" class="glyphicon glyphicon-th-list"> </span>
+        <?= $model->titulo ?> <?= $model->descricao ?>
+        </small>
+    </h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

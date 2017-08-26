@@ -22,6 +22,17 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+<style>
+body {
+    background-color: #f5f5f5;
+}
+
+.app-body {
+    background-color: #fff;
+    min-height: 740px;
+}
+
+</style>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -56,7 +67,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="app-body container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

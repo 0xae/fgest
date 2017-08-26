@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
+                <th><a href="javascript:void(0)"># Refer&ecirc;ncia</a></th>
                 <th><a href="javascript:void(0)">T&iacute;tulo</a></th>
                 <th><a href="javascript:void(0)">Descri&ccedil;&atilde;o</a></th>
                 <th><a href="javascript:void(0)">Valor</a></th>
@@ -31,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <tbody>
             <?php foreach($model as $row): ?>
                 <tr>
+                    <td> Or&ccedil;amento #<?= $row->id ?>  </td>
                     <td> <?= $row->titulo ?>  </td>
                     <td> <?= $row->descricao ?>  </td>
                     <td> <?= $row->valor ?>$00  </td>

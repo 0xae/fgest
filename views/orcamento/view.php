@@ -9,6 +9,12 @@ use yii\widgets\DetailView;
 $this->title =  $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Orcamentos', 'url' => ['index']];
 $facturas = $model->getFactura();
+
+$totalFacturas = 0;
+foreach ($facturas as $f) {
+    $totalFacturas += $f->getGasto();
+}
+
 ?>
 <div class="orcamento-view">
     <h1 class="pull-left">
