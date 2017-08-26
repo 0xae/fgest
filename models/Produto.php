@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "fg_factura_item".
+ * This is the model class for table "fg_produto".
  *
  * @property integer $id
  * @property string $descricao
@@ -21,24 +21,27 @@ use Yii;
  *
  * @property FgFactura $factura
  */
-class FacturaItem extends \yii\db\ActiveRecord
-{
+class Produto extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return 'fg_factura_item';
+    public static function tableName() {
+        return 'fg_produto';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['descricao', 'valor', 'factura_id'], 'required'],
-            [['quantidade', 'factura_id', 'criado_por', 'updated_por'], 'integer'],
+            [['descricao', 'quantidade', 
+                'iva', 'valor', 
+                'factura_id', 'data'
+                ], 'required'],
+
+            [['quantidade', 'factura_id', 
+                'criado_por', 'updated_por'],
+                 'integer'],
             [['valor', 'iva'], 'number'],
             [['data', 'data_criacao', 'data_update'], 'safe'],
             [['descricao'], 'string', 'max' => 50],
@@ -49,8 +52,7 @@ class FacturaItem extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'descricao' => 'Descricao',
@@ -69,8 +71,7 @@ class FacturaItem extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFactura()
-    {
-        return $this->hasOne(FgFactura::className(), ['id' => 'factura_id']);
+    public function getFactura() {
+        return $this->hasOne(Factura::className(), ['id' => 'factura_id']);
     }
 }

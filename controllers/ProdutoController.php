@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\FacturaItem;
+use app\models\Produto;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FacturaItemController implements the CRUD actions for FacturaItem model.
+ * ProdutoController implements the CRUD actions for Produto model.
  */
-class FacturaItemController extends Controller
+class ProdutoController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,13 +30,13 @@ class FacturaItemController extends Controller
     }
 
     /**
-     * Lists all FacturaItem models.
+     * Lists all Produto models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => FacturaItem::find(),
+            'query' => Produto::find(),
         ]);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class FacturaItemController extends Controller
     }
 
     /**
-     * Displays a single FacturaItem model.
+     * Displays a single Produto model.
      * @param integer $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class FacturaItemController extends Controller
     }
 
     /**
-     * Creates a new FacturaItem model.
+     * Creates a new Produto model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new FacturaItem();
+        $model = new Produto();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class FacturaItemController extends Controller
     }
 
     /**
-     * Updates an existing FacturaItem model.
+     * Updates an existing Produto model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +94,7 @@ class FacturaItemController extends Controller
     }
 
     /**
-     * Deletes an existing FacturaItem model.
+     * Deletes an existing Produto model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class FacturaItemController extends Controller
     }
 
     /**
-     * Finds the FacturaItem model based on its primary key value.
+     * Finds the Produto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return FacturaItem the loaded model
+     * @return Produto the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = FacturaItem::findOne($id)) !== null) {
+        if (($model = Produto::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

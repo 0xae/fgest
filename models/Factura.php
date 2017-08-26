@@ -20,21 +20,18 @@ use Yii;
  * @property FgFacturaAnexos[] $fgFacturaAnexos
  * @property FgFacturaItem[] $fgFacturaItems
  */
-class Factura extends \yii\db\ActiveRecord
-{
+class Factura extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'fg_factura';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['titulo', 'orcamento_id'], 'required'],
             [['descricao'], 'string'],
@@ -48,8 +45,7 @@ class Factura extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'titulo' => 'Titulo',
@@ -62,27 +58,13 @@ class Factura extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOrcamento()
-    {
-        return $this->hasOne(FgOrcamento::className(), ['id' => 'orcamento_id']);
+    public function getOrcamento() {
+        return $this->hasOne(FgOrcamento::className(), ['id' => 'orcamento_id'])
+                    ->one();
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFgFacturaAnexos()
-    {
-        return $this->hasMany(FgFacturaAnexos::className(), ['factura_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFgFacturaItems()
-    {
-        return $this->hasMany(FgFacturaItem::className(), ['factura_id' => 'id']);
+    public function getProduto() {
+        return $this->hasMany(Produto::className(), ['factura_id' => 'id'])
+                    ->all();
     }
 }
