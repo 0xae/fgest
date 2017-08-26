@@ -15,7 +15,7 @@
                 <td> Factura #<?= $row->id ?>  </td>
                 <td> <?= $row->titulo ?>  </td>
                 <td> <?= count($row->getProduto()); ?>  </td>
-                <td> <?= $row->getGasto(); ?>$00  </td>
+                <td> <span class="money"><?= $row->getGasto(); ?></span>$00  </td>
                 <td> <?= $row->data_update ?>  </td>
                 <td>
                     <a href="index.php?r=factura/view&id=<?= $row->id ?>">

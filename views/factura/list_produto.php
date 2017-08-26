@@ -4,17 +4,26 @@
             <th style="width: 50%;"><a href="javascript:void(0)">Descrição</a></th>
             <th><center><a href="javascript:void(0)">Pre&ccedil;o</a></center></th>
             <th><center><a href="javascript:void(0)">Quantidade</a></center></th>
-            <th><center><a href="javascript:void(0)">Total</a></center></th>
+            <th><center><a href="javascript:void(0)">Subtotal</a></center></th>
         </tr>
     </thead>
 
     <tbody>
-        <?php foreach ($produtos as $p): ?>
+        <?php 
+            $totalPreco = 0;
+            $totalQuantidade = 0;
+            $total = 0;
+            foreach ($produtos as $p): 
+                $subtotal = ($p->valor * $p->quantidade);
+                $totalPreco += $p->valor;
+                $totalQuantidade += $p->quantidade;
+                $total += $subtotal;
+        ?>
             <tr>
                 <td><?= $p->descricao;?></td>
                 <td>
                     <center>
-                        <?= $p->valor;?>$00
+                        <span class="money"><?= $p->valor;?></span>$00
                         <small> (<?= $p->iva ?>% IVA) </small>
                     </center>
                 </td>
@@ -25,7 +34,7 @@
                 </td>
                 <td>
                     <center>
-                        <?= $p->quantidade * $p->valor;?>$00
+                        <span class="money"><?= $subtotal; ?></span>$00
                     </center>
                 </td>
             </tr>
@@ -41,17 +50,17 @@
             </th>
             <th>
                 <center>
-                    0.00$00
+                    <span class="money"><?= $totalPreco ?></span>$00
                 </center>
             </th>
             <th>
                 <center>
-                    0 un.
+                    <?= $totalQuantidade ; ?> un.
                 </center>
             </th>
             <th>
                 <center>
-                    0.00$00
+                    <span class="money"><?= $total ?></span>$00
                 </center>
             </th>
         </tr>

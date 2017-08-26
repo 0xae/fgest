@@ -70,7 +70,7 @@ class Factura extends \yii\db\ActiveRecord {
         $val = 0;
         $ary = $this->getProduto();
         foreach ($ary as $p) {
-            $val += $p->valor;
+            $val += ($p->valor * $p->quantidade);
         }
         return $val;
     }
