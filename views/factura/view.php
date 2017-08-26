@@ -26,74 +26,26 @@ $produtos = $model->getProduto();
 
         <h4 style="margin-top: 30px">
             Produtos
-
             <a href="#create" class="btn btn-sm pull-right btn-success" 
-                aria-controls="home" role="tab" 
-                data-toggle="tab">
+                 data-toggle="modal" data-target="#produtoModal"
+                 aria-controls="home">
                 adicionar
             </a>
         </h4>
 
-        <table style="margin-top: 20px;" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th style="width: 50%;"><a href="javascript:void(0)">Descrição</a></th>
-                    <th><center><a href="javascript:void(0)">Pre&ccedil;o</a></center></th>
-                    <th><center><a href="javascript:void(0)">Quantidade</a></center></th>
-                    <th><center><a href="javascript:void(0)">Total</a></center></th>
-                </tr>
-            </thead>
+        <?php 
+            echo \Yii::$app->view->renderFile(
+                "@app/views/factura/list_produto.php",
+                ['produtos'=> $produtos, 'model' => $model]
+            ); 
+        ?>
 
-            <tbody>
-                <?php foreach ($produtos as $p): ?>
-                    <tr>
-                    <td><?= $p->descricao;?></td>
-                    <td>
-                        <center>
-                            <?= $p->valor;?>$00
-                            <small> (<?= $p->iva ?>% IVA) </small>
-                        </center>
-                    </td>
-                    <td>
-                        <center>
-                            <?= $p->quantidade;?>un.
-                        </center>
-                    </td>
-                    <td>
-                        <center>
-                            <?= $p->quantidade * $p->valor;?>$00
-                        </center>
-                    </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-
-            <tfoot>
-                <tr>
-                    <th style="width: 50%;">
-                        <center>
-                            TOTAL
-                        <center>
-                    </th>
-                    <th>
-                        <center>
-                            0.00$00
-                        </center>
-                    </th>
-                    <th>
-                        <center>
-                            0.00$00
-                        </center>
-                    </th>
-                    <th>
-                        <center>
-                            0.00$00
-                        </center>
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
-    
+        <?php 
+            echo \Yii::$app->view->renderFile(
+                "@app/views/factura/create_produto.php",
+                ['model' => $model]
+            ); 
+        ?>
     </div>
 
 </div>

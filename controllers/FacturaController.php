@@ -3,13 +3,14 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Factura;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
+use app\models\Factura;
+use app\models\Produto;
 /**
  * FacturaController implements the CRUD actions for Factura model.
  */
@@ -52,8 +53,10 @@ class FacturaController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        $produtoM = new Produto;
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'produtoModel' => $produtoM
         ]);
     }
 
