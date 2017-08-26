@@ -70,7 +70,7 @@ class FacturaController extends Controller {
         $model->data_update = date('Y-m-d H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['orcamento/view', 'id' => $model->orcamento_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

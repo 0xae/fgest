@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="factura-form">
 
-    <?php $form = ActiveForm::begin(['action' => 'factura/create']); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
