@@ -12,13 +12,11 @@ use yii\filters\VerbFilter;
 /**
  * ProdutoController implements the CRUD actions for Produto model.
  */
-class ProdutoController extends Controller
-{
+class ProdutoController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -33,8 +31,7 @@ class ProdutoController extends Controller
      * Lists all Produto models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
             'query' => Produto::find(),
         ]);
@@ -49,8 +46,7 @@ class ProdutoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -61,16 +57,17 @@ class ProdutoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Produto();
         $model->criado_por = Yii::$app->user->identity->id;
         $model->updated_por = Yii::$app->user->identity->id;
-        $model->data_criacao = date('Y-m-d H:i:s');
-        $model->data_update = date('Y-m-d H:i:s');
+        $today = date('Y-m-d H:i:s');
+        $model->data_criacao = $today;
+        if (!$model->data) $model->data = $today;
+        $model->data_update = $today;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['factura/view', 'id' => $model->factura_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,8 +81,7 @@ class ProdutoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -106,8 +102,7 @@ class ProdutoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

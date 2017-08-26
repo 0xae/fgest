@@ -1,3 +1,8 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+?>
+
 <!-- Modal -->
 <div class="modal fade" id="produtoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -8,11 +13,26 @@
       </div>
 
       <div class="modal-body">
-      </div>
+            <?php $form = ActiveForm::begin(['action' => 'index.php?r=produto/create']); ?>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+            <?= $form->field($model, 'descricao')
+                     ->textInput(['maxlength' => true])
+                     ->label('Descri&ccedil;&atilde;o');
+            ?>
+
+            <?= $form->field($model, 'quantidade')->textInput() ?>
+
+            <?= $form->field($model, 'valor')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'iva')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'factura_id')->hiddenInput(['value' => $factura->id])->label(false) ?>
+
+            <div style="height: 20px" class="form-group">
+                <?= Html::submitButton('Guardar', ['class' => 'pull-right btn btn-sm btn-success']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
       </div>
     </div>
   </div>

@@ -43,7 +43,8 @@ $produtos = $model->getProduto();
         <?php 
             echo \Yii::$app->view->renderFile(
                 "@app/views/factura/create_produto.php",
-                ['model' => $model]
+                ['model' => $produtoModel,
+                 'factura' => $model]
             ); 
         ?>
     </div>

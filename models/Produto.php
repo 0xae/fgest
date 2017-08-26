@@ -33,8 +33,8 @@ class Produto extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['descricao', 'quantidade', 
-                'iva', 'valor', 
-                'factura_id', 'data'
+              'iva', 'valor', 
+              'factura_id', 
                 ], 'required'],
 
             [['quantidade', 'factura_id', 
