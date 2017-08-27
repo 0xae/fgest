@@ -40,7 +40,7 @@ create table fg_factura (
     updated_por BIGINT(20)
 );
 
-create table fg_factura_item (
+create table fg_produto (
     id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     descricao varchar(50) NOT NULL,
     quantidade INTEGER NOT NULL default 0,
@@ -56,16 +56,17 @@ create table fg_factura_item (
     updated_por BIGINT(20)
 );
 
-create table fg_factura_anexos (
+create table fg_anexos (
     id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     titulo varchar(50) NOT NULL,
     path text NOT NULL,
-    factura_id BIGINT(20) NOT NULL,
-    FOREIGN KEY(factura_id) REFERENCES fg_factura(id),
+    ref varchar(150) NOT NULL,
 
     data_criacao datetime NOT NULL DEFAULT NOW(),
     data_update datetime NOT NULL DEFAULT NOW(),
     criado_por BIGINT(20),
-    updated_por BIGINT(20)
+    updated_por BIGINT(20),
+
+    UNIQUE(ref)
 );
 

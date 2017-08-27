@@ -1,42 +1,52 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Factura */
-
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Facturas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = [
+    'label' => 'Orçamento #' . str_pad($model->orcamento_id, 5, '0', STR_PAD_LEFT),
+    'url' => ['orcamento/view', 'id'=>$model->orcamento_id]
+];
+
+$produtos = $model->getProduto();
 ?>
+
 <div class="factura-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>
+        Factura #<?= str_pad($model->id, 5, '0', STR_PAD_LEFT); ?>
+        <br/>
+        <small>
+        <span style="font-size:14px" class="glyphicon glyphicon-th-list"> </span>
+        <?= $model->titulo ?> <?= $model->descricao ?>
+        </small>
+    </h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div style="padding: 10px;">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'titulo',
-            'descricao:ntext',
-            'orcamento_id',
-            'data_criacao',
-            'data_update',
-            'criado_por',
-            'updated_por',
-        ],
-    ]) ?>
+        <h4 style="margin-top: 30px">
+            Produtos
+            <a href="#create" class="btn btn-sm pull-right btn-success" 
+                 data-toggle="modal" data-target="#produtoModal"
+                 aria-controls="home">
+                adicionar
+            </a>
+        </h4>
+
+        <?php 
+            echo \Yii::$app->view->renderFile(
+                "@app/views/factura/list_produto.php",
+                ['produtos'=> $produtos, 'model' => $model]
+            ); 
+        ?>
+
+        <?php 
+            echo \Yii::$app->view->renderFile(
+                "@app/views/factura/create_produto.php",
+                ['model' => $produtoModel,
+                 'factura' => $model]
+            ); 
+        ?>
+    </div>
 
 </div>

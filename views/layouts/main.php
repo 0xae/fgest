@@ -22,13 +22,24 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+<style>
+body {
+    background-color: #f5f5f5;
+}
+
+.app-body {
+    background-color: #fff;
+    min-height: 740px;
+}
+
+</style>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' => 'Gest&atilde;o de Or&ccedil;amento',
+        'brandUrl' => 'index.php?r=orcamento/index',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -36,8 +47,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Inicio', 'url' => ['/orcamento/index']],
+            ['label' => 'Factura', 'url' => ['/factura/index']],
+            ['label' => 'Produto', 'url' => ['/produto/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -55,7 +67,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="app-body container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -65,11 +77,28 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; FGest <?= date('Y') ?></p>
     </div>
 </footer>
+
+<?php
+$js = <<<JS
+$('.money').each(function () {   
+    var item = $(this).text();
+    var num = Number(item).toLocaleString('en');
+
+    // if (Number(item) < 0) {
+    //     num = num.replace('-', '');
+    //     $(this).addClass('negMoney');
+    // } else {
+    //     $(this).addClass('enMoney');
+    // }
+
+    $(this).text(num);
+});
+JS;
+$this->registerJs($js);
+?>
 
 <?php $this->endBody() ?>
 </body>

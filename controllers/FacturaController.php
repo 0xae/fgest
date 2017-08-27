@@ -3,27 +3,31 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Factura;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
+use app\models\Factura;
+use app\models\Produto;
 /**
  * FacturaController implements the CRUD actions for Factura model.
  */
-class FacturaController extends Controller
-{
+class FacturaController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -33,8 +37,7 @@ class FacturaController extends Controller
      * Lists all Factura models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
             'query' => Factura::find(),
         ]);
@@ -49,10 +52,11 @@ class FacturaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
+        $produtoM = new Produto;
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'produtoModel' => $produtoM
         ]);
     }
 
@@ -61,12 +65,15 @@ class FacturaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Factura();
+        $model->criado_por = Yii::$app->user->identity->id;
+        $model->updated_por = Yii::$app->user->identity->id;
+        $model->data_criacao = date('Y-m-d H:i:s');
+        $model->data_update = date('Y-m-d H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['orcamento/view', 'id' => $model->orcamento_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -80,11 +87,13 @@ class FacturaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->updated_por = Yii::$app->user->identity->id;
+            $model->data_update = date('Y-m-d H:i:s');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -99,10 +108,8 @@ class FacturaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -113,8 +120,7 @@ class FacturaController extends Controller
      * @return Factura the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Factura::findOne($id)) !== null) {
             return $model;
         } else {

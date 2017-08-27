@@ -3,27 +3,32 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Orcamento;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
+use app\models\Orcamento;
+use app\models\Factura;
 
 /**
  * OrcamentoController implements the CRUD actions for Orcamento model.
  */
-class OrcamentoController extends Controller
-{
+class OrcamentoController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -33,14 +38,10 @@ class OrcamentoController extends Controller
      * Lists all Orcamento models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Orcamento::find(),
-        ]);
-
+    public function actionIndex() {
+        $model = Orcamento::find()->all();
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'model' => $model
         ]);
     }
 
@@ -49,10 +50,12 @@ class OrcamentoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
+        $fact = new Factura;
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'facturaModel' => $fact
         ]);
     }
 
@@ -61,9 +64,11 @@ class OrcamentoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Orcamento();
+        $model->criado_por = Yii::$app->user->identity->id;
+        $model->updated_por = Yii::$app->user->identity->id;
+        $model->data_criacao = date('Y-m-d H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -80,11 +85,13 @@ class OrcamentoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->updated_por = Yii::$app->user->identity->id;
+            $model->data_update = date('Y-m-d H:i:s');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -99,10 +106,8 @@ class OrcamentoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
+    public function actionDelete($id) {
+        # $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
 
@@ -113,8 +118,7 @@ class OrcamentoController extends Controller
      * @return Orcamento the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Orcamento::findOne($id)) !== null) {
             return $model;
         } else {
