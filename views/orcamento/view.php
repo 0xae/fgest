@@ -21,7 +21,7 @@ foreach ($facturas as $f) {
         Orçamento #<?= str_pad($model->id, 5, '0', STR_PAD_LEFT); ?>
         <br/>
         <small>
-            <?= $model->valor ?>$00
+            <span class="money"><?= $model->valor ?></span>$00
         </small>
     </h1>
 

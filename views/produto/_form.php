@@ -22,18 +22,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'iva')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'factura_id')->textInput() ?>
-
-    <?= $form->field($model, 'data_criacao')->textInput() ?>
-
-    <?= $form->field($model, 'data_update')->textInput() ?>
-
-    <?= $form->field($model, 'criado_por')->textInput() ?>
-
-    <?= $form->field($model, 'updated_por')->textInput() ?>
-
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Guardar' , ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
